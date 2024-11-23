@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "Marc Newman's personal website",
 };
 
-export default function RootLayout({ children, }: React.PropsWithChildren ) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <body
