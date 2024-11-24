@@ -49,6 +49,12 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
   platform = "WEB_COMPUTE"
 
   custom_rule {
+    source = "https://${var.domain_name}"
+    target = "https://www.${var.domain_name}"
+    status = 302
+  }
+
+  custom_rule {
     source = "/<*>"
     status = "404-200"
     target = "/index.html"
