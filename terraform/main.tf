@@ -16,27 +16,27 @@ provider "aws" {
 # SERVICE ROLE
 # ============
 
-resource "aws_iam_role" "amplify_backend_service_role" {
-  name = "Amplify-Backend-Deployment-Role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = "amplify.amazonaws.com"
-        },
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "administrator_access_amplify" {
-  role       = aws_iam_role.amplify_backend_service_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
-}
+# resource "aws_iam_role" "amplify_role" {
+#   name = "amplify_deploy_terraform_role"
+#
+#   assume_role_policy = jsonencode({
+#     "Version" : "2012-10-17",
+#     "Statement" : [
+#       {
+#         "Effect" : "Allow",
+#         "Principal" : {
+#           "Service" : "amplify.amazonaws.com"
+#         },
+#         "Action" : "sts:AssumeRole"
+#       }
+#     ]
+#   })
+# }
+#
+# resource "aws_iam_role_policy_attachment" "amplify_role_policy" {
+#   role       = aws_iam_role.amplify_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
+# }
 
 # ===========
 # AMPLIFY APP
@@ -54,7 +54,7 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
 
   enable_branch_auto_build = true
 
-  iam_service_role_arn = aws_iam_role.amplify_backend_service_role.arn
+  # iam_service_role_arn = aws_iam_role.amplify_role.arn
 
   build_spec = <<-EOT
     version: 0.1
