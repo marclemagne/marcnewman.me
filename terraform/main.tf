@@ -12,57 +12,27 @@ provider "aws" {
   region = var.region
 }
 
-# ============
-# SERVICE ROLE
-# ============
-
-# resource "aws_iam_role" "amplify_role" {
-#   name = "amplify_deploy_terraform_role"
-#
-#   assume_role_policy = jsonencode({
-#     "Version" : "2012-10-17",
-#     "Statement" : [
-#       {
-#         "Effect" : "Allow",
-#         "Principal" : {
-#           "Service" : "amplify.amazonaws.com"
-#         },
-#         "Action" : "sts:AssumeRole"
-#       }
-#     ]
-#   })
-# }
-#
-# resource "aws_iam_role_policy_attachment" "amplify_role_policy" {
-#   role       = aws_iam_role.amplify_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
-# }
-
-# ===========
-# AMPLIFY APP
-# ===========
-
 data "aws_secretsmanager_secret_version" "access_token" {
   secret_id = var.access_token_secret_arn
 }
 
 resource "aws_amplify_app" "marcnewman_me_amplify_app" {
-  name = var.domain_name
+  name = "terraform-${var.domain_name}"
 
   repository   = var.repository
   access_token = data.aws_secretsmanager_secret_version.access_token.secret_string
 
   enable_branch_auto_build = true
 
-  # iam_service_role_arn = aws_iam_role.amplify_role.arn
+  iam_service_role_arn = aws_iam_role.amplify_aws_service_role.arn
 
   build_spec = <<-EOT
-    version: 0.1
+    version: 1
     frontend:
       phases:
         preBuild:
           commands:
-            - npm install
+            - npm ci --cache .npm --prefer-offline
         build:
           commands:
             - npm run build
@@ -72,11 +42,16 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
           - '**/*'
       cache:
         paths:
-          - node_modules/**/*
+          - .next/cache/**/*
+          - .npm/**/*
   EOT
 
-  environment_variables = {
-    NODE_ENV = "production"
+  platform = "WEB_COMPUTE"
+
+  custom_rule {
+    source = "/<*>"
+    status = "404-200"
+    target = "/index.html"
   }
 }
 
