@@ -12,6 +12,32 @@ provider "aws" {
   region = var.region
 }
 
+# ============
+# SERVICE ROLE
+# ============
+
+resource "aws_iam_role" "amplify_backend_service_role" {
+  name = "Amplify-Backend-Deployment-Role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "amplify.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "administrator_access_amplify" {
+  role       = aws_iam_role.amplify_backend_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-Amplify"
+}
+
 # ===========
 # AMPLIFY APP
 # ===========
@@ -27,6 +53,8 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
   access_token = data.aws_secretsmanager_secret_version.access_token.secret_string
 
   enable_branch_auto_build = true
+
+  iam_service_role_arn = aws_iam_role.amplify_backend_service_role.arn
 
   build_spec = <<-EOT
     version: 0.1
