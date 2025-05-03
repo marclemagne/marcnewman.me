@@ -2,7 +2,7 @@ export default function SocialLinkedIn() {
   return (
     <a
       aria-label="Marc Newman's LinkedIn profile"
-      className="text-grey-500 group inline-flex items-center gap-2 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent dark:text-white"
+      className="text-grey-500 group inline-flex items-center gap-2 hover:bg-linear-to-r hover:from-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent dark:text-white"
       href="https://www.linkedin.com/in/~marc-newman"
     >
       <svg
