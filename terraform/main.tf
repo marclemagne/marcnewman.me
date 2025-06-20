@@ -12,8 +12,12 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_secretsmanager_secret" "access_token" {
+  name = var.access_token_secret_name
+}
+
 data "aws_secretsmanager_secret_version" "access_token" {
-  secret_id = var.access_token_secret_arn
+  secret_id = data.aws_secretsmanager_secret.access_token.id
 }
 
 resource "aws_amplify_app" "marcnewman_me_amplify_app" {

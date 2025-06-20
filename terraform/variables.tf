@@ -8,8 +8,8 @@ variable "hosted_zone_name" {
   type        = string
 }
 
-variable "access_token_secret_arn" {
-  description = "The ARN of the AWS Secrets Manager secret storing the GitHub personal access token for authentication."
+variable "access_token_secret_name" {
+  description = "The name of the AWS Secrets Manager secret storing the GitHub access token"
   type        = string
 }
 
