@@ -36,6 +36,8 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
       phases:
         preBuild:
           commands:
+            - node -v
+            - npm -v
             - npm ci --cache .npm --prefer-offline
         build:
           commands:
