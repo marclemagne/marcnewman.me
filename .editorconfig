@@ -1,16 +1,32 @@
-# https://editorconfig.org/
-
-# top-most EditorConfig file
+# EditorConfig helps maintain consistent coding styles between different editors and IDEs
+# More info: https://editorconfig.org
 root = true
 
 [*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
 
-# Preserve trailing spaces in Markdown, which can affect formatting
+# Markdown: keep trailing spaces (often used for line breaks) and ignore line length
 [*.md]
 trim_trailing_whitespace = false
+max_line_length = off
+
+# YAML
+[*.{yml,yaml}]
+indent_size = 2
+
+# JavaScript/TypeScript and JSON
+[*.{js,cjs,mjs,jsx,ts,tsx,json}]
+indent_size = 2
+
+# Styles and HTML
+[*.{css,scss,less,html}]
+indent_size = 2
+
+# Terraform
+[*.{tf,tfvars}]
+indent_size = 2

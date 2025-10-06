@@ -1,29 +1,41 @@
 {
-  "name": "marcnewman.me",
-  "version": "0.1.0",
+  "name": "marcnewman",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "generate-linkedin-data": "tsx scripts/generate-linkedin-data.ts"
   },
   "dependencies": {
-    "next": "^15.3.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "@tailwindcss/vite": "^4.1.14",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^8",
-    "eslint-config-next": "15.3.0",
-    "postcss": "^8",
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.1.5",
-    "typescript": "^5"
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.6.0",
+    "@types/papaparse": "^5.3.16",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "papaparse": "^5.5.3",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.45.0",
+    "vite": "^7.1.7"
   }
 }

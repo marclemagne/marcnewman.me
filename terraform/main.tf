@@ -43,7 +43,7 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
           commands:
             - npm run build
       artifacts:
-        baseDirectory: .next
+        baseDirectory: dist
         files:
           - '**/*'
       cache:

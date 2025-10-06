@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace;
+
+  --color-background: #e8ddd0;
+
+  --color-primary: #5a7a8f;
+  --color-secondary: rgba(90, 100, 95, 0.7);
+
+  /* Card colors */
+  --color-card: rgba(250, 244, 237, 0.94);
+  --color-card-border: rgba(184, 134, 87, 0.6);
+
+  /* Button colors */
+  --color-button: rgba(184, 134, 87, 0.9);
+  --color-button-hover: rgba(164, 114, 67, 1);
+  --color-button-border: rgba(184, 134, 87, 1);
+  --color-button-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #f8fafc;
+    --color-secondary: rgba(200, 210, 215, 0.7);
+
+    /* Card colors */
+    --color-card: rgba(44, 62, 80, 0.92);
+    --color-card-border: rgba(
+      184,
+      200,
+      220,
+      0.5
+    );
+
+    /* Button colors */
+    --color-button: rgba(204, 154, 107, 0.9);
+    --color-button-hover: rgba(224, 174, 127, 1);
+    --color-button-border: rgba(204, 154, 107, 1);
+    --color-button-text: #ffffff;
+  }
+}
+
+/* Custom base styles */
+:root {
+  color-scheme: light dark;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100vh; /* Fallback for older browsers */
+    height: 100dvh;
+    overflow: auto;
+  }
+
+  body {
+    @apply antialiased font-mono bg-background;
+  }
+}
+
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@utility animate-pulse-scale {
+  animation: pulse-scale 1s ease-in-out infinite;
+}
