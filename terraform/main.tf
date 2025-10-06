@@ -27,8 +27,8 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
   access_token = data.aws_secretsmanager_secret_version.access_token.secret_string
 
   enable_branch_auto_build = true
-
-  iam_service_role_arn = aws_iam_role.amplify_aws_service_role.arn
+  iam_service_role_arn     = aws_iam_role.amplify_aws_service_role.arn
+  platform                 = "WEB"
 
   build_spec = <<-EOT
     version: 1
@@ -52,18 +52,40 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
           - .npm/**/*
   EOT
 
-  platform = "WEB"
-
   custom_rule {
     source = "https://${var.domain_name}"
     target = "https://www.${var.domain_name}"
-    status = 302
+    status = "301"
   }
 
   custom_rule {
-    source = "/<*>"
-    status = "404-200"
+    source = "https://www.${var.domain_name}/"
+    target = "https://www.${var.domain_name}"
+    status = "301"
+  }
+
+  custom_rule {
+    source = "/me/"
+    target = "/me"
+    status = "301"
+  }
+
+  custom_rule {
+    source = "/me"
     target = "/index.html"
+    status = "200"
+  }
+
+  custom_rule {
+    source = "</^(?!/$|/me$)/.*>"
+    target = "/"
+    status = "301"
+  }
+
+  custom_rule {
+    source = "/"
+    target = "/index.html"
+    status = "200"
   }
 }
 
