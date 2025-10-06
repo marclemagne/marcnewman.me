@@ -1,5 +1,6 @@
 import { type ReactNode, useCallback, useEffect, useState } from "react";
 import cr from "../utils/cr.ts";
+import { trackEvent } from "../utils/analytics.ts";
 
 type ExpandingBoxProps = {
   children: (args: { isExpanded: boolean; toggleBox: () => void }) => ReactNode;
@@ -62,13 +63,17 @@ export default function ExpandingBox({
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isExpanded) {
+        if (pathname?.includes("/me")) {
+          trackEvent("profile_shrink", { from: "profile", trigger: "escape" });
+        }
+
         toggleBox();
       }
     };
 
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [isExpanded, toggleBox]);
+  }, [isExpanded, toggleBox, pathname]);
 
   /**
    * Syncs the box’s expanded state with browser navigation.

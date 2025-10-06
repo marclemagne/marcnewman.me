@@ -38,7 +38,7 @@ export default function Position({ position }: PositionProps) {
   return (
     <article>
       <h3 className="text-lg font-bold">{companyName}</h3>
-      <p className="text-secondary mb-1">{title}</p>
+      <p className="text-sm text-secondary mb-1">{title}</p>
       <p className="text-sm text-primary/80 mb-4 space-y-1.5 md:space-y-0">
         {location ? (
           <>
@@ -52,14 +52,14 @@ export default function Position({ position }: PositionProps) {
       </p>
       <p>{intro}</p>
       {bullets.length > 0 ? (
-        <>
+        <div className="md:px-14">
           <p className="font-semibold mb-2 mt-4">Key Accomplishments:</p>
           <ul className="list-disc pl-5 space-y-2">
             {bullets.map((bullet, bulletIdx) => (
               <li key={bulletIdx}>{bullet}</li>
             ))}
           </ul>
-        </>
+        </div>
       ) : null}
     </article>
   );
