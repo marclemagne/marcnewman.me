@@ -17,9 +17,9 @@ function App() {
           {({ isExpanded, toggleBox }) => (
             <>
               {isExpanded ? (
-                <Profile onShrinkClick={toggleBox} />
+                <Profile onShrink={toggleBox} />
               ) : (
-                <Card onExpandClick={toggleBox} />
+                <Card onExpand={toggleBox} />
               )}
 
               <DashedBorder />

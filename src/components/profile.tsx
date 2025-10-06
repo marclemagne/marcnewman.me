@@ -2,16 +2,23 @@ import { linkedInData } from "../generated/linkedin-data";
 import Position from "./position.tsx";
 import { Shrink } from "lucide-react";
 import LinkedIn from "./linkedin.tsx";
+import { trackEvent } from "../utils/analytics.ts";
 
 type ProfileProps = {
-  onShrinkClick: () => void;
+  onShrink: () => void;
 };
 
 const { positions, profile: profiles } = linkedInData;
 const [profile] = profiles;
 
-export default function Profile({ onShrinkClick }: ProfileProps) {
+export default function Profile({ onShrink }: ProfileProps) {
   const { geoLocation, summary } = profile;
+
+  const handleClick = () => {
+    trackEvent("profile_shrink", { from: "profile" });
+
+    onShrink();
+  };
 
   return (
     <article className="text-primary relative">
@@ -19,7 +26,7 @@ export default function Profile({ onShrinkClick }: ProfileProps) {
         aria-label="Collapse About Me section"
         type="button"
         className="absolute group right-0 bg-button text-button-text hover:bg-button-hover border border-button-border rounded-sm p-2 shadow-md"
-        onClick={onShrinkClick}
+        onClick={handleClick}
       >
         <Shrink className="group-hover:animate-pulse-scale" size={16} />
       </button>

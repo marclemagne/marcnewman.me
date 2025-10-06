@@ -1,10 +1,17 @@
 import { Expand } from "lucide-react";
+import { trackEvent } from "../utils/analytics.ts";
 
 type CardProps = {
-  onExpandClick: () => void;
+  onExpand: () => void;
 };
 
-export default function Card({ onExpandClick }: CardProps) {
+export default function Card({ onExpand }: CardProps) {
+  const handleClick = () => {
+    trackEvent("profile_expand", { from: "home_card" });
+
+    onExpand();
+  };
+
   return (
     <article className="flex flex-col items-center">
       <img
@@ -20,7 +27,7 @@ export default function Card({ onExpandClick }: CardProps) {
         aria-label="Expand About Me section"
         type="button"
         className="group bg-button text-button-text hover:bg-button-hover border border-button-border rounded-sm px-4 py-1 shadow-md flex items-center gap-2"
-        onClick={onExpandClick}
+        onClick={handleClick}
       >
         About me
         <Expand className="ml-1 group-hover:animate-pulse-scale" size={16} />
