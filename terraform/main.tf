@@ -52,7 +52,7 @@ resource "aws_amplify_app" "marcnewman_me_amplify_app" {
           - .npm/**/*
   EOT
 
-  platform = "WEB_COMPUTE"
+  platform = "WEB"
 
   custom_rule {
     source = "https://${var.domain_name}"
