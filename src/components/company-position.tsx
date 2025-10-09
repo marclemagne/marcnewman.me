@@ -1,13 +1,12 @@
 import { useMemo } from "react";
 import type { Position } from "../types/data.ts";
 
-type PositionProps = {
+type CompanyPositionProps = {
   position: Position;
 };
 
-export default function Position({ position }: PositionProps) {
-  const { companyName, title, description, location, startedOn, finishedOn } =
-    position;
+export default function CompanyPosition({ position }: CompanyPositionProps) {
+  const { title, description, startedOn, finishedOn } = position;
 
   /**
    * Parses the position description into intro text and bullet points. Removes
@@ -29,18 +28,9 @@ export default function Position({ position }: PositionProps) {
 
   return (
     <article>
-      <h3 className="text-xl font-bold">{companyName}</h3>
-      <p className="text-sm text-secondary mb-1">{title}</p>
-      <p className="text-sm text-primary/80 mb-4 space-y-1.5 md:space-y-0">
-        {location ? (
-          <>
-            <span className="block md:inline">{location}</span>
-            <span className="hidden md:inline"> • </span>
-          </>
-        ) : null}
-        <span className="block md:inline">
-          {startedOn} — {finishedOn ? finishedOn : "Present"}
-        </span>
+      <h4 className="text-lg font-semibold mb-1">{title}</h4>
+      <p className="text-sm text-primary/80 mb-4">
+        {startedOn} — {finishedOn ? finishedOn : "Present"}
       </p>
       <p>{intro}</p>
       {bullets.length > 0 ? (

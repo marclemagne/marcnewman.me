@@ -100,7 +100,7 @@ export default function ExpandingBox({
     <div
       className={cr(
         "relative backdrop-blur-sm transition-all",
-        isExpanded ? "min-h-[80vh] w-[80vw] p-8 h-auto" : "px-8 py-6",
+        isExpanded ? "min-h-[80vh] w-[80vw] max-w-5xl p-8 h-auto" : "px-8 py-6",
         className,
       )}
       style={{ viewTransitionName }}

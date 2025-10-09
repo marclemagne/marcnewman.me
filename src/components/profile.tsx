@@ -1,14 +1,16 @@
-import { linkedInData } from "../generated/linkedin-data";
-import Position from "./position.tsx";
 import { Shrink } from "lucide-react";
 import LinkedIn from "./linkedin.tsx";
 import { trackEvent } from "../utils/analytics.ts";
+import { companies } from "../utils/profile.ts";
+import { linkedInData } from "../generated/linkedin-data.ts";
+import Company from "./company.tsx";
+import Position from "./position.tsx";
 
 type ProfileProps = {
   onShrink: () => void;
 };
 
-const { positions, profile: profiles } = linkedInData;
+const { profile: profiles } = linkedInData;
 const [profile] = profiles;
 
 export default function Profile({ onShrink }: ProfileProps) {
@@ -21,7 +23,7 @@ export default function Profile({ onShrink }: ProfileProps) {
   };
 
   return (
-    <article className="text-primary relative">
+    <section className="text-primary relative">
       <button
         aria-label="Collapse About Me section"
         type="button"
@@ -41,11 +43,15 @@ export default function Profile({ onShrink }: ProfileProps) {
       <h2 className="text-2xl font-bold mt-6 mb-4">About</h2>
       <p>{summary}</p>
       <h2 className="text-2xl font-bold my-6">Experience</h2>
-      <section className="space-y-10">
-        {positions.map((position, positionIdx) => (
-          <Position key={positionIdx} position={position} />
-        ))}
-      </section>
+      <div className="space-y-10">
+        {companies.map((company, companyIdx) =>
+          company.positions.length > 1 ? (
+            <Company key={companyIdx} company={company} />
+          ) : (
+            <Position key={companyIdx} position={company.positions[0]} />
+          ),
+        )}
+      </div>
       <footer className="mt-12 pt-6 border-t border-primary/20 text-sm">
         <a
           aria-label="Marc Newman's LinkedIn profile"
@@ -55,6 +61,6 @@ export default function Profile({ onShrink }: ProfileProps) {
           <LinkedIn /> See more on LinkedIn
         </a>
       </footer>
-    </article>
+    </section>
   );
 }
